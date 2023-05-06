@@ -8,6 +8,11 @@
 // @remove-on-eject-end
 'use strict';
 
+var realPath = ''
+if (GetResourcePath && GetCurrentResourceName) {
+	realPath = GetResourcePath(GetCurrentResourceName()) + '/node_modules/react-scripts/config';
+}
+
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
@@ -24,9 +29,9 @@ const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
 const ESLintPlugin = require('eslint-webpack-plugin');
-const paths = require('./paths');
-const modules = require('./modules');
-const getClientEnvironment = require('./env');
+const paths = require(realPath + './paths');
+const modules = require(realPath + './modules');
+const getClientEnvironment = require(realPath + './env');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin =
   process.env.TSC_COMPILE_ON_ERROR === 'true'
@@ -36,7 +41,7 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 // @remove-on-eject-begin
 const getCacheIdentifier = require('react-dev-utils/getCacheIdentifier');
 // @remove-on-eject-end
-const createEnvironmentHash = require('./webpack/persistentCache/createEnvironmentHash');
+const createEnvironmentHash = require(realPath + './webpack/persistentCache/createEnvironmentHash');
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
